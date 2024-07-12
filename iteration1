@@ -1,0 +1,164 @@
+// User defined function
+void myblockfunction_middleFirstCube();
+// User defined function
+void myblockfunction_topCube();
+// User defined function
+void myblockfunction_bottomCube();
+// User defined function
+void myblockfunction_topFirstCube();
+// User defined function
+void myblockfunction_bottomFirstCube();
+// User defined function
+void myblockfunction_grabStore();
+
+float cube;
+
+// User defined function
+void myblockfunction_middleFirstCube() {
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 18.0, inches, true);
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 8.0, inches, true);
+  if (Color5.detects(blue_green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_grabStore();
+    Drivetrain.driveFor(forward, 42.0, inches, true);
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 18.0, inches, true);
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    myblockfunction_topCube();
+  }
+  else {
+    Drivetrain.driveFor(reverse, 8.0, inches, true);
+    myblockfunction_bottomFirstCube();
+  }
+}
+
+// User defined function
+void myblockfunction_topCube() {
+  Drivetrain.driveFor(forward, 50.0, inches, true);
+  repeat(2) {
+    if (Color5.detects(blue_green)) {
+      Drivetrain.driveFor(forward, 3.0, inches, true);
+      myblockfunction_grabStore();
+      Drivetrain.driveFor(reverse, 3.0, inches, true);
+    }
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 18.0, inches, true);
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    wait(20, msec);
+  }
+  if (Color5.detects(blue_green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_grabStore();
+    Drivetrain.driveFor(reverse, 3.0, inches, true);
+  }
+  Drivetrain.driveFor(reverse, 40.0, inches, true);
+  Drivetrain.turnFor(left, 45.0, degrees, true);
+  Drivetrain.driveFor(reverse, 18.0, inches, true);
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  Drivetrain.driveFor(reverse, 30.0, inches, true);
+  Drivetrain.turnFor(right, 45.0, degrees, true);
+  Drivetrain.driveFor(reverse, 17.0, inches, true);
+}
+
+// User defined function
+void myblockfunction_bottomCube() {
+  repeat(2) {
+    if (Color5.detects(blue_green)) {
+      Drivetrain.driveFor(forward, 3.0, inches, true);
+      myblockfunction_grabStore();
+      Drivetrain.driveFor(reverse, 3.0, inches, true);
+    }
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 18.0, inches, true);
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    wait(20, msec);
+  }
+  if (Color5.detects(blue_green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_grabStore();
+    Drivetrain.driveFor(reverse, 3.0, inches, true);
+  }
+  Drivetrain.driveFor(reverse, 40.0, inches, true);
+  Drivetrain.turnFor(right, 45.0, degrees, true);
+  Drivetrain.driveFor(reverse, 18.0, inches, true);
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  Drivetrain.driveFor(reverse, 30.0, inches, true);
+  Drivetrain.turnFor(left, 45.0, degrees, true);
+  Drivetrain.driveFor(reverse, 17.0, inches, true);
+}
+
+// User defined function
+void myblockfunction_topFirstCube() {
+  Drivetrain.driveFor(forward, 22.0, inches, true);
+  if (Color5.detects(blue_green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_grabStore();
+    myblockfunction_topCube();
+  }
+  else {
+    myblockfunction_middleFirstCube();
+  }
+}
+
+// User defined function
+void myblockfunction_bottomFirstCube() {
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 18.0, inches, true);
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  if (Color5.detects(blue_green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_grabStore();
+    Drivetrain.driveFor(forward, 50.0, inches, true);
+    myblockfunction_bottomCube();
+  }
+  else {
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 9.0, inches, true);
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 20.0, inches, true);
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 9.0, inches, true);
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 33.0, inches, true);
+    myblockfunction_bottomCube();
+  }
+}
+
+// User defined function
+void myblockfunction_grabStore() {
+  Motor9.spin(reverse);
+  waitUntil(Motor9.isDone());
+  if (cube < 3.0) {
+    Motor10.spinFor(forward, 180.0, degrees, true);
+    Motor9.spin(forward);
+    waitUntil(Motor9.isDone());
+    Motor10.spinFor(reverse, 180.0, degrees, true);
+  }
+  cube = cube + 1.0;
+}
+
+// "when started" hat block
+int whenStarted1() {
+  cube = 0.0;
+  Color5.setLight(100, percent);
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setTurnVelocity(100.0, percent);
+  Motor10.spinFor(forward, 10.0, degrees, true);
+  Motor9.spin(reverse);
+  waitUntil(Motor9.isDone());
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 3.5, inches, true);
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  myblockfunction_topFirstCube();
+  return 0;
+}
+
+
+int main() {
+  // Calibrate the Drivetrain Gyro
+  calibrateDrivetrain();
+
+  whenStarted1();
+}
