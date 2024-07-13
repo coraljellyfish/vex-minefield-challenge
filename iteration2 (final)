@@ -1,0 +1,78 @@
+// User defined function
+void myblockfunction_cube();
+// User defined function
+void myblockfunction_cube_2();
+// User defined function
+void myblockfunction_cube3();
+
+float myVariable;
+
+// User defined function
+void myblockfunction_cube() {
+  Motor9.spin(reverse);
+  waitUntil(Motor9.isDone());
+  Motor10.spinFor(forward, 30.0, degrees, true);
+  Drivetrain.driveFor(reverse, 35.0, inches, true);
+  Drivetrain.turnFor(right, 30.0, degrees, true);
+}
+
+// User defined function
+void myblockfunction_cube_2() {
+  Motor9.spin(reverse);
+  waitUntil(Motor9.isDone());
+  Motor10.spinFor(forward, 30.0, degrees, true);
+  Drivetrain.driveFor(reverse, 45.0, inches, true);
+}
+
+// User defined function
+void myblockfunction_cube3() {
+  Motor9.spin(reverse);
+  waitUntil(Motor9.isDone());
+  Motor10.spinFor(forward, 30.0, degrees, true);
+  Drivetrain.driveFor(reverse, 35.0, inches, true);
+  Drivetrain.turnFor(left, 30.0, degrees, true);
+}
+
+// "when started" hat block
+int whenStarted1() {
+  Color5.setLight(100, percent);
+  Motor10.spinFor(forward, 20.0, degrees, true);
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setTurnVelocity(100.0, percent);
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 3.0, inches, true);
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  Drivetrain.driveFor(forward, 22.0, inches, true);
+  if (Color5.detects(blue_green) || Color5.detects(green)) {
+    Drivetrain.driveFor(forward, 3.0, inches, true);
+    myblockfunction_cube();
+  }
+  else {
+    Drivetrain.driveFor(reverse, 3.0, inches, true);
+    Drivetrain.turnFor(right, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 16.5, inches, true);
+    Drivetrain.turnFor(left, 90.0, degrees, true);
+    Drivetrain.driveFor(forward, 9.0, inches, true);
+    if (Color5.detects(blue_green) || Color5.detects(green)) {
+      Drivetrain.driveFor(forward, 5.0, inches, true);
+      myblockfunction_cube_2();
+    }
+    else {
+      Drivetrain.driveFor(reverse, 10.0, inches, true);
+      Drivetrain.turnFor(right, 90.0, degrees, true);
+      Drivetrain.driveFor(forward, 16.0, inches, true);
+      Drivetrain.turnFor(left, 90.0, degrees, true);
+      Drivetrain.driveFor(forward, 3.0, inches, true);
+      myblockfunction_cube3();
+    }
+  }
+  return 0;
+}
+
+
+int main() {
+  // Calibrate the Drivetrain Gyro
+  calibrateDrivetrain();
+
+  whenStarted1();
+}
